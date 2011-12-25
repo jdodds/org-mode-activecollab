@@ -1,8 +1,8 @@
-(add-to-list 'load-path ".")
+;(add-to-list 'load-path ".")
 (require 'ert)
-(require 'org-feed-active-collab-formatter)
+(require 'org-feed-active-collab)
 
-(ert-deftest ac-formatter-formats ()
+(ert-deftest ac-formatter-test-feed-entry-formatting ()
   (let ((entry
 	 (list
 	  :guid "https://www.example.com/ac/index.php?path_info=projects/731/tickets/3828"
@@ -12,7 +12,7 @@
 ]]>"
 	  :link "https://www.example.com/ac/index.php?path_info=projects/731/tickets/3828"
 	  :title "[FOO: 0013 - Project Common] Ticket \"Research domain registrars and their APIs\"")))
-    (let ((result (org-feed-active-collab-formatter entry)))
-      (should (equal result
+    (let ((result (org-feed-parse-activecollab-entry entry)))
+      (ert-should (equal result
 		     "* TODO [[https://www.example.com/ac/index.php?path_info=projects/731/tickets/3828][Research domain registrars and their APIs]]\nDEADLINE: <2011-12-01 Thu>\nresearch domain/SSL alternatives to SRS Plus that meet our API/automation needs. Make a recommendation to Henry Hatford as to service to move to (to be implemented in future milestone). in meantime, can apply SSL process be handed to not-Jimmy Dalton?")))))
     
